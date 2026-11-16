@@ -66,7 +66,7 @@ def search_ddgs_sync(query: str, limit: int) -> list[str]:
         if not href.startswith("http"):
             continue
         parsed = urllib.parse.urlparse(href)
-        domain = parsed.netloc.lower().removeprefix("www.")
+        domain = parsed.netloc.lower().removeprefix("www.").removeprefix("www.")
         if any(s in domain for s in SKIP_DOMAINS) or domain in seen:
             continue
         seen.add(domain)
@@ -101,7 +101,7 @@ async def _unused_old_search(context, query: str, limit: int) -> list[str]:
             if not href.startswith("http"):
                 continue
             parsed = urllib.parse.urlparse(href)
-            domain = parsed.netloc.lower().removeprefix("www.")
+            domain = parsed.netloc.lower().removeprefix("www.").removeprefix("www.")
             if any(skip in domain for skip in SKIP_DOMAINS) or domain in seen_domains:
                 continue
             seen_domains.add(domain)
